@@ -29,10 +29,11 @@ while True:
     GPIO.output(GPIO_TRIGGER, False)
     time.sleep(0.00001)
     wait_time = random.random() * 10
-    print("Waiting %.1f secondes" % (
+    print("%s - Waiting %.1f secondes" % (
         datetime.now().strftime('%H:%M:%S'),
         wait_time
     ))
+    time.sleep(wait_time)
 
 # Reset GPIO settings
 GPIO.cleanup()
