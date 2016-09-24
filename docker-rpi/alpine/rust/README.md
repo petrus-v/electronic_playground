@@ -1,5 +1,8 @@
 # Alpine rust support for RPI.
 
+**WARNING**: this image is not working, waiting that [issue](
+https://github.com/rust-lang/rust/issues/31322) to be solved.
+
 This Dockerfile is based on alpine build supply by [hypriot](
 https://github.com/hypriot/rpi-alpine-scratch) works. Expect to run
 on RaspberryPi 3.
