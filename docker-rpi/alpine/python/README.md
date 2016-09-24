@@ -7,7 +7,7 @@ https://github.com/hypriot/rpi-alpine-scratch) works.
 
 build:
 
-```
-  cd ~/electronic_playground/docker-rpi/alpine/python
-  docker build -t rpi-alpine-python:3.5 .
+```bash
+$ cd ~/electronic_playground/docker-rpi/alpine/python
+$ docker build -t rpi-alpine-python:3.5 .
 ```
