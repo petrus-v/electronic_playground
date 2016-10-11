@@ -19,7 +19,7 @@ $ docker build -t rpi-raspbian-rust-blink .
 
 ```bash
 $ docker run --rm -it \
-      -v /home/pirate/electronic_playground/blink-light/src/:/usr/src/blink-light/ \
+      -v /home/pirate/electronic_playground/rust/blink-light/src/:/usr/src/blink-light/ \
       -v /sys:/sys rpi-raspbian-rust-blink cargo run
 ```
 
