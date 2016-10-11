@@ -17,6 +17,6 @@ RUN chmod +x ./rustup.sh \
         file \
         --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
-    && ./rustup.sh --disable-sudo -s -- --channel=$channel
+    && ./rustup.sh --disable-sudo -y --channel=nightly
 
 CMD ["rustc", "--version"]
