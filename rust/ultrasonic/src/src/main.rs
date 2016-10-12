@@ -29,7 +29,37 @@ fn main() {
 
     input.with_exported(|| {
         try!(input.set_direction(Direction::In));
+        try!(input.set_edge(Edge::FallingEdge));
+        let mut poller = try!(input.get_poller());
+        loop {
+            match try!(poller.poll(1000)) {
+                Some(value) => {
+                    start = Instant::now();
+                    println!("poll value: {}", value);
+                },
+                None => {
+                    let mut stdout = stdout();
+                    try!(stdout.write(b"."));
+                    try!(stdout.flush());
+                }
+            }
+        }
         try!(input.set_edge(Edge::RisingEdge));
+        let mut poller = try!(input.get_poller());
+        loop {
+            match try!(poller.poll(1000)) {
+                Some(value) => {
+                    elapsed_ms = start.elapsed().subsec_nanos() as f64;
+                    println!("poll value: {}", value);
+                },
+                None => {
+                    let mut stdout = stdout();
+                    try!(stdout.write(b"."));
+                    try!(stdout.flush());
+                }
+            }
+        }
+        try!(input.set_edge(Edge::FallingEdge));
         let mut poller = try!(input.get_poller());
         loop {
             match try!(poller.poll(1000)) {
