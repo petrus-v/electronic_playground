@@ -1,7 +1,5 @@
 extern crate sysfs_gpio;
 
-use std::io::prelude::*;
-use std::io::stdout;
 use std::thread::sleep;
 use std::time::{Duration, Instant};
 use sysfs_gpio::{Direction, Edge, Pin};
@@ -19,7 +17,7 @@ fn main() {
         try!(output.set_direction(Direction::Out));
         try!(output.set_value(0));
         // Allow module to settle
-        sleep(Duration::from_millis(100));
+        sleep(Duration::from_millis(500));
         try!(output.set_value(1));
         // Send 10us pulse to trigger
         sleep(Duration::from_millis(10));
@@ -29,51 +27,21 @@ fn main() {
 
     input.with_exported(|| {
         try!(input.set_direction(Direction::In));
-        try!(input.set_edge(Edge::FallingEdge));
+        try!(input.set_edge(Edge::BothEdges));
         let mut poller = try!(input.get_poller());
         loop {
             match try!(poller.poll(1000)) {
                 Some(value) => {
-                    start = Instant::now();
-                    println!("poll value: {}", value);
-                },
-                None => {
-                    let mut stdout = stdout();
-                    try!(stdout.write(b"."));
-                    try!(stdout.flush());
-                }
-            }
-        }
-        try!(input.set_edge(Edge::RisingEdge));
-        let mut poller = try!(input.get_poller());
-        loop {
-            match try!(poller.poll(1000)) {
-                Some(value) => {
+                    println!(
+                        "poll value: {}",
+                        value
+                    );
                     elapsed_ms = start.elapsed().subsec_nanos() as f64;
-                    println!("poll value: {}", value);
                 },
-                None => {
-                    let mut stdout = stdout();
-                    try!(stdout.write(b"."));
-                    try!(stdout.flush());
-                }
-            }
+                None => {break;}
+            };
         }
-        try!(input.set_edge(Edge::FallingEdge));
-        let mut poller = try!(input.get_poller());
-        loop {
-            match try!(poller.poll(1000)) {
-                Some(value) => {
-                    elapsed_ms = start.elapsed().subsec_nanos() as f64;
-                    println!("poll value: {}", value);
-                },
-                None => {
-                    let mut stdout = stdout();
-                    try!(stdout.write(b"."));
-                    try!(stdout.flush());
-                }
-            }
-        }
+        Ok(())
     }).expect("Export gpio 24");
 
     // Distance = elapsed time / 2 * velocity
