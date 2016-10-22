@@ -1,16 +1,31 @@
 extern crate cupi;
 
 use cupi::{CuPi, Logic};
-use std::thread::sleep;
-use std::time::Duration;
 
 fn main() {
     let cupi = CuPi::new().unwrap();
-    let output = cupi.pin(1).unwrap().output();
+    let input = cupi.pin(1).unwrap().input();
+    let mut current: Logic = Logic::Low;
     loop {
-        output.write(Logic::High);
-        sleep(Duration::from_millis(200));
-        output.write(Logic::Low);
-        sleep(Duration::from_millis(200));
+        match input.read() {
+            Logic::Low => {
+                match current {
+                    Logic::High => {
+                        println!("Light turned off");
+                        current = Logic::Low;
+                    },
+                    _ => {}
+                }
+            },
+            Logic::High => {
+                match current {
+                    Logic::Low => {
+                        println!("Light switched On");
+                        current = Logic::High;
+                    },
+                    _ => {}
+                }
+            }
+        }
     }
 }
