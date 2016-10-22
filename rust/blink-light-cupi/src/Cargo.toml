@@ -4,4 +4,4 @@ version = "0.1.0"
 authors = ["Pierre Verkest <pverkest@anybox.fr>"]
 
 [dependencies]
-sysfs_gpio = "0.4"
+cupi = "*"
