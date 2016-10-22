@@ -6,7 +6,7 @@ use std::time::Duration;
 
 fn main() {
     let cupi = CuPi::new().unwrap();
-    let output = cupi.pin(18).unwrap().output();
+    let output = cupi.pin(1).unwrap().output();
     loop {
         output.write(Logic::High);
         sleep(Duration::from_millis(200));

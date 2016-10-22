@@ -15,5 +15,7 @@ $ docker build -t rpi-raspbian-rust-ultrasonic .
 ```bash
 $ docker run --rm -it \
       -v /home/pirate/electronic_playground/rust/ultrasonic/src/:/usr/src/ultrasonic/ \
-      -v /sys:/sys rpi-raspbian-rust-blink cargo run
+      -v ~/.cargo/registry:/root/.cargo/registry/ \
+      --cap-add SYS_RAWIO --device /dev/mem \
+      rpi-raspbian-rust-ultrasonic cargo run
 ```

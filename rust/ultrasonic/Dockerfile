@@ -7,4 +7,4 @@ WORKDIR /usr/src/ultrasonic
 COPY ./src /usr/src/ultrasonic
 # build the project once to cache required crates
 RUN cargo build
-CMD ['cargo', 'run']
+CMD ['cargo', 'build']
