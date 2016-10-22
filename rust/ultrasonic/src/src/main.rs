@@ -21,21 +21,24 @@ fn main() {
 
     output.write(Logic::High);
     // Send 10us pulse to trigger
-    sleep(Duration::from_millis(10));
+    sleep(Duration::new(0, 10));
     output.write(Logic::Low);
     let start = Instant::now();
 
-//    println!("wainting High");
+    // println!("wainting High");
     loop {
         match input.read() {
-            Logic::Low => {print!(".")},
-            Logic::High => {break;}
+            Logic::Low => {},
+            Logic::High => {
+                start = Instant::now();
+                break;
+            }
         };
     }
-//    println!("wainting Low");
+    // println!("wainting Low");
     loop {
         match input.read() {
-            Logic::High=> {print!(".")},
+            Logic::High=> {},
             Logic::Low => {
                 elapsed_ms = start.elapsed().subsec_nanos() as f64;
                 break;
@@ -47,5 +50,4 @@ fn main() {
     let distance = elapsed_ms * 0.000000001 / 2.0 * 340.0;
 
     println!("Distance {} (en m)", distance);
-
 }
