@@ -14,7 +14,7 @@ This image contains all sweets tools provide by rust while following
 ```bash
 $ git clone https://github.com/petrus-v/electronic_playground
 $ cd electronic_playground/docker-rpi/raspbian/rust
-$ docker build -t rpi-raspbian-rust:beta --build-arg channel=beta .
+$ docker build -t petrusv/rpi-raspbian-rust:nightly --build-arg channel=nightly .
 ```
 
 ### Option
