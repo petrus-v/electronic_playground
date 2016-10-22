@@ -22,15 +22,14 @@ fn main() {
     output.write(Logic::High);
     // Send 10us pulse to trigger
     sleep(Duration::new(0, 10));
-    output.write(Logic::Low);
     let start = Instant::now();
+    output.write(Logic::Low);
 
     // println!("wainting High");
     loop {
         match input.read() {
             Logic::Low => {},
             Logic::High => {
-                start = Instant::now();
                 break;
             }
         };
