@@ -1,10 +1,10 @@
 FROM petrusv/rpi-raspbian-rust:nightly
 
 ENV user=root
-RUN mkdir -p /usr/src/blink-light
-WORKDIR /usr/src/blink-light
+RUN mkdir -p /usr/src/ir-receiver
+WORKDIR /usr/src/ir-receiver
 
-COPY ./src /usr/src/blink-light
+COPY ./src /usr/src/ir-receiver
 # build the project once to cache required crates
 RUN cargo build
 CMD ['cargo', 'run']
